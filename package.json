@@ -4,6 +4,7 @@
   "description": "Automação Híbrida ServeRest",
   "devDependencies": {
     "@playwright/test": "^1.42.0",
+    "@types/node": "^25.5.2",
     "dotenv": "^16.4.5",
     "typescript": "^5.3.3"
   },
