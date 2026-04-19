@@ -14,5 +14,5 @@
     "test:ui": "npx playwright test tests/e2e/",
     "report": "npx playwright show-report"
   }
-  
+
 }
