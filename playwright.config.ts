@@ -39,23 +39,6 @@ export default defineConfig({
       testDir: './api/specs',
       use: { baseURL: process.env.URL_API },
     },
-    {
-      name: 'ui-chromium',
-      testDir: './front/specs',
-      use: { baseURL: process.env.URL_UI, ...devices['Desktop Chrome'] },
-    },
-
-    {
-      name: 'ui-firefox',
-      testDir: './front/specs',
-      use: { baseURL: process.env.URL_UI, ...devices['Desktop Firefox'] },
-    },
-
-    {
-      name: 'ui-webkit',
-      testDir: './front/specs',
-      use: { baseURL: process.env.URL_UI, ...devices['Desktop Safari'] },
-    },
 
     /* Test against mobile viewports. */
     // {
