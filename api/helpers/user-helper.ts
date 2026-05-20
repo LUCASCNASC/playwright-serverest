@@ -1,6 +1,7 @@
 import { APIRequestContext } from '@playwright/test';
 import { ApiClient } from './api-client';
 import { User, LoginCredentials, LoginResponse } from '../models/user';
+import { faker } from '@faker-js/faker';
 
 /**
  * Helper para operações relacionadas a usuários
@@ -45,6 +46,44 @@ export class UserHelper {
    */
   async deleteUser(id: string) {
     return this.apiClient.delete(`/usuarios/${id}`);
+  }
+
+  /**
+   * Gera dados dinâmicos de usuário utilizando a biblioteca Faker
+   */
+  private generateUserData(isAdmin: boolean): User {
+    // Removendo acentos e caracteres especiais para evitar problemas no email/senha
+    const normalize = (str: string) => str.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z]/g, '');
+    
+    const firstName = normalize(faker.person.firstName());
+    const lastName = normalize(faker.person.lastName());
+    
+    return {
+      nome: `${firstName} ${lastName}`,
+      email: `${firstName.toLowerCase()}_${lastName.toLowerCase()}@test.com`,
+      password: `@${firstName}123`,
+      administrador: isAdmin ? 'true' : 'false'
+    };
+  }
+
+  /**
+   * Cria um novo usuário Administrador com dados aleatórios
+   * Retorna a resposta da API e os dados utilizados na criação (para futuro login)
+   */
+  async createRandomAdminUser() {
+    const userData = this.generateUserData(true);
+    const response = await this.createUser(userData);
+    return { response, userData };
+  }
+
+  /**
+   * Cria um novo usuário Normal com dados aleatórios
+   * Retorna a resposta da API e os dados utilizados na criação (para futuro login)
+   */
+  async createRandomNormalUser() {
+    const userData = this.generateUserData(false);
+    const response = await this.createUser(userData);
+    return { response, userData };
   }
 }
 
