@@ -50,6 +50,7 @@ test.describe('API Login - Serverest', () => {
     await expect(authHelper.login(credentials)).rejects.toThrow();
   });
 
+  // Teste para login com email inexistente
   test('não deve realizar login com email inexistente', async () => {
     const credentials: LoginCredentials = {
       email: 'usuario-inexistente@qa.com',
@@ -59,6 +60,7 @@ test.describe('API Login - Serverest', () => {
     await expect(authHelper.login(credentials)).rejects.toThrow();
   });
 
+  // Teste para login com email inválido
   test('não deve realizar login com email inválido', async () => {
     const credentials: LoginCredentials = {
       email: 'email-invalido',
@@ -68,6 +70,7 @@ test.describe('API Login - Serverest', () => {
     await expect(authHelper.login(credentials)).rejects.toThrow();
   });
 
+  // Teste para login com dados faltantes - sem email
   test('não deve realizar login com dados faltantes - sem email', async () => {
     const credentials = {
       password: 'teste'
@@ -76,6 +79,7 @@ test.describe('API Login - Serverest', () => {
     await expect(authHelper.login(credentials)).rejects.toThrow();
   });
 
+  // Teste para login com dados faltantes - sem senha
   test('não deve realizar login com dados faltantes - sem senha', async () => {
     const credentials = {
       email: 'fulano@qa.com'
@@ -84,6 +88,7 @@ test.describe('API Login - Serverest', () => {
     await expect(authHelper.login(credentials)).rejects.toThrow();
   });
 
+  // Teste para login com dados extras
   test('não deve realizar login com dados extras', async () => {
     const credentials = {
       email: 'fulano@qa.com',

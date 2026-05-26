@@ -83,7 +83,7 @@ test.describe('API Carrinhos - Serverest', () => {
     await requestContext.dispose();
   });
 
-  // Cenários positivos
+  // Cenários positivos 
   test('deve listar todos os carrinhos', async () => {
     const response = await cartHelper.getCarts();
 
@@ -94,6 +94,7 @@ test.describe('API Carrinhos - Serverest', () => {
     expect(Array.isArray(data.carrinhos)).toBe(true);
   });
 
+  // Teste para buscar carrinho por ID
   test('deve buscar carrinho por ID', async () => {
     // Primeiro, listar carrinhos para obter um ID válido
     const listResponse = await cartHelper.getCarts();
@@ -112,6 +113,7 @@ test.describe('API Carrinhos - Serverest', () => {
     }
   });
 
+  // Teste para cadastrar carrinho
   test('deve cadastrar novo carrinho', async () => {
     const cartData = {
       produtos: [
@@ -130,6 +132,7 @@ test.describe('API Carrinhos - Serverest', () => {
     expect(data).toHaveProperty('_id');
   });
 
+  // Teste para concluir compra
   test('deve concluir compra', async () => {
     // Primeiro, criar um carrinho
     const cartData = {
@@ -151,6 +154,7 @@ test.describe('API Carrinhos - Serverest', () => {
     expect(data.message).toContain('Registro excluído com sucesso');
   });
 
+  // Teste para cancelar compra
   test('deve cancelar compra', async () => {
     // Primeiro, criar um carrinho
     const cartData = {
@@ -190,6 +194,7 @@ test.describe('API Carrinhos - Serverest', () => {
     expect(data).toHaveProperty('message', 'Token de acesso ausente, inválido, expirado ou usuário do token não existe mais');
   });
 
+  // Teste para cadastrar carrinho com produto inexistente
   test('não deve cadastrar carrinho com produto inexistente', async () => {
     const cartData = {
       produtos: [
@@ -207,6 +212,7 @@ test.describe('API Carrinhos - Serverest', () => {
     expect(data).toHaveProperty('message', 'Produto não encontrado');
   });
 
+  // Teste para cadastrar carrinho com quantidade insuficiente
   test('não deve cadastrar carrinho com quantidade insuficiente', async () => {
     const cartData = {
       produtos: [
@@ -224,6 +230,7 @@ test.describe('API Carrinhos - Serverest', () => {
     expect(data).toHaveProperty('message', 'Produto não possui quantidade suficiente');
   });
 
+  // Teste para cadastrar carrinho duplicado para mesmo usuário
   test('não deve cadastrar carrinho duplicado para mesmo usuário', async () => {
     // Criar primeiro carrinho
     const cartData = {
@@ -245,6 +252,7 @@ test.describe('API Carrinhos - Serverest', () => {
     expect(data).toHaveProperty('message', 'Não é permitido ter mais de 1 carrinho');
   });
 
+  // Teste para buscar carrinho inexistente
   test('não deve buscar carrinho inexistente', async () => {
     const response = await cartHelper.getCartById('1234567890123456');
 
@@ -253,6 +261,7 @@ test.describe('API Carrinhos - Serverest', () => {
     expect(data).toHaveProperty('message', 'Carrinho não encontrado');
   });
 
+  // Teste para concluir compra sem carrinho
   test('não deve concluir compra sem carrinho', async () => {
     // Garantir que não há carrinho (cancelando se existir)
     await cartHelper.cancelPurchase(userToken);
@@ -264,6 +273,7 @@ test.describe('API Carrinhos - Serverest', () => {
     expect(data).toHaveProperty('message', 'Não foi encontrado carrinho para esse usuário');
   });
 
+  // Teste para cancelar compra
   test('não deve cancelar compra sem carrinho', async () => {
     // Garantir que não há carrinho
     await cartHelper.cancelPurchase(userToken);

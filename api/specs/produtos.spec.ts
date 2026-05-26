@@ -59,6 +59,7 @@ test.describe('API Produtos - Serverest', () => {
     expect(Array.isArray(data.produtos)).toBe(true);
   });
 
+  // Teste para buscar produto por ID
   test('deve buscar produto por ID', async () => {
     // Primeiro, listar produtos para obter um ID válido
     const listResponse = await productHelper.getProducts();
@@ -73,6 +74,7 @@ test.describe('API Produtos - Serverest', () => {
     expect(data).toHaveProperty('_id', productId);
   });
 
+  // Teste para cadastrar produto como admin
   test('deve cadastrar novo produto como admin', async () => {
     const newProduct: Product = {
       nome: `Produto Teste ${Date.now()}`,
@@ -89,6 +91,7 @@ test.describe('API Produtos - Serverest', () => {
     expect(data).toHaveProperty('_id');
   });
 
+  // Teste para atualizar produto como admin
   test('deve atualizar produto existente como admin', async () => {
     // Primeiro, criar um produto para atualizar
     const newProduct: Product = {
@@ -117,6 +120,7 @@ test.describe('API Produtos - Serverest', () => {
     expect(data).toHaveProperty('message', 'Registro alterado com sucesso');
   });
 
+  // Teste para deletar produto como admin
   test('deve deletar produto como admin', async () => {
     // Primeiro, criar um produto para deletar
     const newProduct: Product = {
@@ -165,6 +169,7 @@ test.describe('API Produtos - Serverest', () => {
     expect(data).toHaveProperty('message', 'Já existe produto com esse nome');
   });
 
+  // Teste para cadastrar produto sem autenticação
   test('não deve cadastrar produto sem autenticação', async () => {
     const newProduct: Product = {
       nome: `Produto Sem Auth ${Date.now()}`,
@@ -180,6 +185,7 @@ test.describe('API Produtos - Serverest', () => {
     expect(data).toHaveProperty('message', 'Token de acesso ausente, inválido, expirado ou usuário do token não existe mais');
   });
 
+  // Teste para cadastrar produto sem ser admin
   test('não deve buscar produto inexistente', async () => {
     const response = await productHelper.getProductById('1234567890123456');
 
@@ -188,6 +194,7 @@ test.describe('API Produtos - Serverest', () => {
     expect(data).toHaveProperty('message', 'Produto não encontrado');
   });
 
+  // Teste para atualizar produto sem autenticação
   test('não deve atualizar produto sem autenticação', async () => {
     const response = await productHelper.updateProduct('some-id', { nome: 'Teste' }, '');
 
@@ -196,6 +203,7 @@ test.describe('API Produtos - Serverest', () => {
     expect(data).toHaveProperty('message', 'Token de acesso ausente, inválido, expirado ou usuário do token não existe mais');
   });
 
+  // Teste para deletar produto sem autenticação
   test('não deve deletar produto sem autenticação', async () => {
     const response = await productHelper.deleteProduct('some-id', '');
 

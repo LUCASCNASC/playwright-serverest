@@ -42,6 +42,7 @@ test.describe('API Usuários - Serverest', () => {
     expect(Array.isArray(data.usuarios)).toBe(true);
   });
 
+  // Teste para buscar usuário por ID
   test('deve buscar usuário por ID', async () => {
     // Usar o ID do usuário admin conhecido
     const response = await userHelper.getUserById('0uxuPY0cbmQhpEz1');
@@ -53,6 +54,7 @@ test.describe('API Usuários - Serverest', () => {
     expect(data).toHaveProperty('email', 'fulano@qa.com');
   });
 
+  // Teste para cadastrar novo usuário
   test('deve cadastrar novo usuário', async () => {
     const newUser: User = {
       nome: 'Usuario Teste API',
@@ -69,6 +71,7 @@ test.describe('API Usuários - Serverest', () => {
     expect(data).toHaveProperty('_id');
   });
 
+  // Teste para atualizar usuário
   test('deve atualizar usuário existente', async () => {
     // Primeiro, criar um usuário para atualizar
     const newUser: User = {
@@ -97,6 +100,7 @@ test.describe('API Usuários - Serverest', () => {
     expect(data).toHaveProperty('message', 'Registro alterado com sucesso');
   });
 
+  // Teste para deletar usuário
   test('deve deletar usuário', async () => {
     // Primeiro, criar um usuário para deletar
     const newUser: User = {
@@ -134,6 +138,7 @@ test.describe('API Usuários - Serverest', () => {
     expect(data).toHaveProperty('message', 'Este email já está sendo usado');
   });
 
+  // Teste para cadastrar usuário com dados inválidos
   test('não deve cadastrar usuário com dados inválidos', async () => {
     const invalidUser = {
       nome: '', // Nome vazio
@@ -148,6 +153,7 @@ test.describe('API Usuários - Serverest', () => {
     // A API pode retornar diferentes mensagens de erro para dados inválidos
   });
 
+  // Teste para buscar usuário inexistente
   test('não deve buscar usuário inexistente', async () => {
     const response = await userHelper.getUserById('0000000000000001');
 
@@ -156,6 +162,7 @@ test.describe('API Usuários - Serverest', () => {
     expect(data).toHaveProperty('message', 'Usuário não encontrado');
   });
 
+  // Teste para atualizar usuário inexistente
   test('deve criar novo usuário ao atualizar usuário inexistente', async () => {
     const updatedData = {
       nome: 'Usuario Inexistente Atualizado',
@@ -171,6 +178,7 @@ test.describe('API Usuários - Serverest', () => {
     expect(data).toHaveProperty('message', 'Cadastro realizado com sucesso');
   });
 
+  // Teste para deletar usuário inexistente
   test('não deve deletar usuário inexistente', async () => {
     const response = await userHelper.deleteUser('usuario-inexistente-123');
 
